@@ -1,37 +1,33 @@
-
-#define enA 3
-#define in1A 4
-#define in2A 5
-#define irSensor 2
+#define irSensor A3
+#define wheel A2
+#define trigger 8
 
 void setup() {
-  Serial.begin(9600);
-
-  pinMode(enA, OUTPUT);
-  pinMode(in1A, OUTPUT);
-  pinMode(in2A, OUTPUT);
   pinMode(irSensor, INPUT);
-
-  digitalWrite(enA, HIGH);
+  pinMode(wheel, INPUT);
+  pinMode(trigger, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
-  int sensorValue = digitalRead(irSensor);
+  int wheelValue = analogRead(wheel);
 
-  if (sensorValue == LOW) {
-    // Object detected (common for IR obstacle sensors)
-    digitalWrite(in1A, HIGH);
-    digitalWrite(in2A, LOW);
+  //Serial.println(wheelValue);
+  
+  int sensorValue = analogRead(irSensor);
 
-    Serial.println("Object detected - spinning one way");
-  } 
-  else {
-    // No object detected
-    digitalWrite(in1A, LOW);
-    digitalWrite(in2A, LOW);
+  int distance = sensorValue - wheelValue;
+  
 
-    Serial.println("No object detected - stopped");
+  Serial.println(distance);
+  
+  if (distance >= 500){
+  	digitalWrite(trigger, HIGH);
   }
-
-  delay(100);
+  
+  else {
+  	digitalWrite(trigger, LOW);
+  }
+  
+  delay(200);
 }
