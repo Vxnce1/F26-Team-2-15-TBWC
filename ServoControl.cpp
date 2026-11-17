@@ -25,3 +25,24 @@ void loop()
     servo_9.write(pos);
   }
 }
+
+
+#include <Servo.h>
+
+Servo s;
+
+void setup() {
+  Serial.begin(9600);
+  s.attach(9);         
+}
+
+void loop() {
+
+  s.write(0);
+  Serial.println("0");
+  delay(2000);
+
+  s.write(100);
+  Serial.println("180");
+  delay(2000);
+}
