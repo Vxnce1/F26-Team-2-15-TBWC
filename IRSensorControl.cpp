@@ -31,3 +31,23 @@ void loop() {
   
   delay(200);
 }
+
+
+#define irSensor A0
+
+void setup() {
+  pinMode(irSensor, INPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  int sensorValue = analogRead(irSensor);
+
+
+
+  Serial.println(sensorValue);
+  
+  delay(2000);
+}
