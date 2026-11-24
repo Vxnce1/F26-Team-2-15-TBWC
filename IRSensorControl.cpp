@@ -1,53 +1,50 @@
-#define irSensor A3
-#define wheel A2
-#define trigger 8
-
-void setup() {
-  pinMode(irSensor, INPUT);
-  pinMode(wheel, INPUT);
-  pinMode(trigger, OUTPUT);
-  Serial.begin(9600);
-}
-
-void loop() {
-  int wheelValue = analogRead(wheel);
-
-  //Serial.println(wheelValue);
-  
-  int sensorValue = analogRead(irSensor);
-
-  int distance = sensorValue - wheelValue;
-  
-
-  Serial.println(distance);
-  
-  if (distance >= 500){
-  	digitalWrite(trigger, HIGH);
-  }
-  
-  else {
-  	digitalWrite(trigger, LOW);
-  }
-  
-  delay(200);
-}
-
+#include <Servo.h>
 
 #define irSensor A0
+#define enA 3
+#define in1A 4
+#define in2A 5
+
+Servo s;
 
 void setup() {
   pinMode(irSensor, INPUT);
-
+  pinMode(enA, OUTPUT);
+  pinMode(in1A, OUTPUT);
+  pinMode(in2A, OUTPUT);
+  digitalWrite(enA, HIGH);
   Serial.begin(9600);
 }
 
 void loop() {
+  int irValue = analogRead(irSensor);
+  Serial.println(irValue);
+  delay(1000);
 
-  int sensorValue = analogRead(irSensor);
+  // Forward();
+  // while (analogRead(irSensor) == 0) { }
+
+  // delay(30);                 
+
+  // Stop();
+  // delay(500);
+  // Backward();
 
 
+  // while (true) {}
+}
 
-  Serial.println(sensorValue);
-  
-  delay(2000);
+void Forward() {
+  digitalWrite(in1A, HIGH);
+  digitalWrite(in2A, LOW);
+}
+
+void Backward() {
+  digitalWrite(in1A, LOW);
+  digitalWrite(in2A, HIGH);
+}
+
+void Stop() {
+  digitalWrite(in1A, LOW);
+  digitalWrite(in2A, LOW);
 }
