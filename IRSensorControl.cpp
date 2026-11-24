@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-#define irSensor A0
+#define irSensor 9
 #define enA 3
 #define in1A 4
 #define in2A 5
@@ -17,31 +17,37 @@ void setup() {
 }
 
 void loop() {
-  int irValue = analogRead(irSensor);
-  Serial.println(irValue);
-  delay(1000);
-
-  // Forward();
+  Forward();
   // while (analogRead(irSensor) == 0) { }
-
+  int count = 0;
+  while (count < 30) {
+    if (digitalRead(irSensor) == 1) {
+      count++;
+    } else {
+      count = 0;
+    }
+    delay(10);
+  }
   // delay(30);                 
 
   // Stop();
   // delay(500);
-  // Backward();
-
-
-  // while (true) {}
+  Backward();
+  while (true) {}
 }
 
 void Forward() {
   digitalWrite(in1A, HIGH);
   digitalWrite(in2A, LOW);
+  Serial.println("forwards");
+  delay(500);
 }
 
 void Backward() {
   digitalWrite(in1A, LOW);
   digitalWrite(in2A, HIGH);
+  Serial.println("going backwards");
+  delay(500);
 }
 
 void Stop() {
