@@ -20,7 +20,7 @@ void loop() {
   Forward();
   // while (analogRead(irSensor) == 0) { }
   int count = 0;
-  while (count < 30) {
+  while (count < 10) {
     if (digitalRead(irSensor) == 1) {
       count++;
     } else {
@@ -39,15 +39,15 @@ void loop() {
 void Forward() {
   digitalWrite(in1A, HIGH);
   digitalWrite(in2A, LOW);
-  Serial.println("forwards");
-  delay(500);
+  // Serial.println("forwards");
+  // delay(500);
 }
 
 void Backward() {
   digitalWrite(in1A, LOW);
   digitalWrite(in2A, HIGH);
-  Serial.println("going backwards");
-  delay(500);
+  // Serial.println("going backwards");
+  // delay(500);
 }
 
 void Stop() {
