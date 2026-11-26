@@ -20,13 +20,13 @@ void loop() {
   Forward();
   // while (analogRead(irSensor) == 0) { }
   int count = 0;
-  while (count < 10) {
+  while (count < 2) {
     if (digitalRead(irSensor) == 1) {
       count++;
     } else {
       count = 0;
     }
-    delay(50);
+    delay(10);
   }
   // delay(30);                 
 
