@@ -5,6 +5,8 @@
 #define in1A 4
 #define in2A 5
 
+const unsigned long BUFFER = 750;
+
 Servo s;
 
 void setup() {
@@ -16,22 +18,40 @@ void setup() {
   Serial.begin(9600);
 }
 
+// void loop() {
+//   Forward();
+//   unsigned long startTime = millis();
+//   // delay(1000);
+//   // while (analogRead(irSensor) == 0) { }
+//   int count = 0;
+//   while (count < 2) {
+//     if ((millis() - startTime > BUFFER && digitalRead(irSensor) == 1) {
+//       count++;
+//     } else {
+//       count = 0;
+//     }
+//     delay(10);
+//   }
+//   Backward();
+//   while (true) {}
+// }
+
+
 void loop() {
   Forward();
-  // while (analogRead(irSensor) == 0) { }
+  unsigned long startTime = millis();
+
   int count = 0;
   while (count < 2) {
-    if (digitalRead(irSensor) == 1) {
+    // only look at the sensor after the buffer time is over
+    if (millis() - startTime > BUFFER && digitalRead(irSensor) == 1) {
       count++;
     } else {
       count = 0;
     }
-    delay(10);
+    delay(5);
   }
-  // delay(30);                 
 
-  // Stop();
-  // delay(500);
   Backward();
   while (true) {}
 }
