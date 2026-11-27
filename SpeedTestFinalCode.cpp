@@ -7,45 +7,47 @@
 
 Servo s;
 
-// Time to keep reversing AFTER leaving the black tape, to get back to the start.
-const unsigned long RETURN_TIME = 10000;  
-
 void setup() {
-  s.attach(8);
-  s.write(0);
   pinMode(irSensor, INPUT);
   pinMode(enA, OUTPUT);
   pinMode(in1A, OUTPUT);
   pinMode(in2A, OUTPUT);
   digitalWrite(enA, HIGH);
+  Serial.begin(9600);
 }
 
 void loop() {
-  int floorColour = digitalRead(irSensor);
   Forward();
-  while (digitalRead(irSensor) == floorColour) { }
-  delay(30);                
+  // while (analogRead(irSensor) == 0) { }
+  int count = 0;
+  while (count < 2) {
+    if (digitalRead(irSensor) == 1) {
+      count++;
+    } else {
+      count = 0;
+    }
+    delay(10);
+  }
+  // delay(30);                 
 
-  Stop();
-  delay(500);
-
+  // Stop();
+  // delay(500);
   Backward();
-  while (digitalRead(irSensor) != floorColour) { }
-  delay(30);
-
-  delay(RETURN_TIME);
-  Stop();
-  while (true) { }         
+  while (true) {}
 }
 
 void Forward() {
   digitalWrite(in1A, HIGH);
   digitalWrite(in2A, LOW);
+  // Serial.println("forwards");
+  // delay(500);
 }
 
 void Backward() {
   digitalWrite(in1A, LOW);
   digitalWrite(in2A, HIGH);
+  // Serial.println("going backwards");
+  // delay(500);
 }
 
 void Stop() {
