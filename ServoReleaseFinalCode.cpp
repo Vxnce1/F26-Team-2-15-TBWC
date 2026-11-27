@@ -24,8 +24,12 @@ void loop (){
   digitalWrite(in2A, LOW);
   Serial.println("spinning one way");
 
-  delay(4050);
+  delay(2650);
   stop();
+  s.write(0);
+  s.write(180);
+  s.write(0);
+  s.write(180);
   delay(3000);
   back();
   delay(4050);
